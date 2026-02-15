@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>hi girlf</title>
+<title>Be My Valentine 💖</title>
 
 <style>
   body {
@@ -131,7 +131,7 @@
 
 <button id="playAgain">play again 💕</button>
 
-<audio id="song" src="https://files.catbox.moe/8y4v3u.mp3"></audio>
+<iframe id="spotifyPlayer" style="display:none;" src="https://open.spotify.com/embed/track/6KkqZcs9XDgVck7Lg9QOTC?utm_source=generator" width="300" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
 <script>
 const noBtn = document.getElementById("noBtn");
@@ -141,6 +141,7 @@ const playAgain = document.getElementById("playAgain");
 
 let effectsActive = false;
 
+// Make the "no" button run away
 document.addEventListener("mousemove", (e) => {
   if (effectsActive) return;
 
@@ -158,8 +159,7 @@ document.addEventListener("mousemove", (e) => {
 
 function launchEffects() {
   effectsActive = true;
-  song.currentTime = 0;
-  song.play();
+  document.getElementById("spotifyPlayer").style.display = "block";
 
   const top = document.createElement("div");
   top.className = "topText";
@@ -201,6 +201,7 @@ function launchEffects() {
     document.body.appendChild(confetti);
   }
 
+  // floating hearts forever
   setInterval(() => {
     const f = document.createElement("div");
     f.className = "floatingHeart";
