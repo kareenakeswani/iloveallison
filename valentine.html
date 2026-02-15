@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>hi girlf</title>
+
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    background: linear-gradient(to bottom, #ffd6ec, #ffeef7);
+    text-align: center;
+  }
+
+  h1 {
+    margin-top: 80px;
+    font-size: 3rem;
+    color: #ff4da6;
+  }
+
+  .buttons {
+    margin-top: 40px;
+  }
+
+  button {
+    padding: 15px 25px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    margin: 10px;
+    transition: transform 0.2s ease;
+  }
+
+  #yesBtn { background: #ff66b3; color: white; }
+  #noBtn { background: #ccc; position: absolute; }
+
+  #playAgain {
+    display: none;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 80px;
+    background: #ff4da6;
+    color: white;
+    font-weight: bold;
+  }
+
+  .topText, .bottomText {
+    position: fixed;
+    width: 100%;
+    font-weight: bold;
+    opacity: 0;
+    pointer-events: none;
+    text-shadow: 0 0 15px rgba(255,255,255,0.8);
+  }
+
+  .topText {
+    top: 10px;
+    font-size: 4rem;
+    color: hotpink;
+    animation: explode 1s ease-out forwards;
+  }
+
+  .bottomText {
+    bottom: 10px;
+    font-size: 3rem;
+    color: purple;
+    animation: fadeIn 2s forwards;
+  }
+
+  @keyframes explode {
+    0% { transform: scale(0.2) rotate(0deg); opacity: 0; }
+    70% { transform: scale(1.4) rotate(10deg); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .sticker {
+    position: fixed;
+    width: 80px;
+    pointer-events: none;
+    animation: float 6s linear infinite;
+  }
+
+  @keyframes float {
+    from { transform: translateY(-100px) rotate(0deg); }
+    to { transform: translateY(110vh) rotate(360deg); }
+  }
+
+  .heart, .confetti, .floatingHeart {
+    position: fixed;
+    pointer-events: none;
+    animation: fall linear forwards;
+  }
+
+  .heart { color: #ff4da6; font-size: 20px; }
+
+  .floatingHeart {
+    color: #ff66b3;
+    font-size: 24px;
+    animation: floatUp 6s linear infinite;
+  }
+
+  .confetti { width: 8px; height: 12px; }
+
+  @keyframes fall {
+    from { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+    to { transform: translateY(110vh) rotate(720deg); opacity: 0.9; }
+  }
+
+  @keyframes floatUp {
+    from { transform: translateY(110vh) scale(0.8); opacity: 0; }
+    to { transform: translateY(-10vh) scale(1.2); opacity: 1; }
+  }
+</style>
+</head>
+
+<body>
+
+<h1>will you be my valentine?</h1>
+
+<div class="buttons">
+  <button id="yesBtn">yes 💖</button>
+  <button id="noBtn">no</button>
+</div>
+
+<button id="playAgain">play again 💕</button>
+
+<audio id="song" src="https://files.catbox.moe/8y4v3u.mp3"></audio>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const song = document.getElementById("song");
+const playAgain = document.getElementById("playAgain");
+
+let effectsActive = false;
+
+document.addEventListener("mousemove", (e) => {
+  if (effectsActive) return;
+
+  const rect = noBtn.getBoundingClientRect();
+  const distX = Math.abs(e.clientX - rect.left);
+  const distY = Math.abs(e.clientY - rect.top);
+
+  if (distX < 80 && distY < 80) {
+    const newX = Math.random() * (window.innerWidth - 100);
+    const newY = Math.random() * (window.innerHeight - 50);
+    noBtn.style.left = newX + "px";
+    noBtn.style.top = newY + "px";
+  }
+});
+
+function launchEffects() {
+  effectsActive = true;
+  song.currentTime = 0;
+  song.play();
+
+  const top = document.createElement("div");
+  top.className = "topText";
+  top.textContent = "yay allison 💕";
+  document.body.appendChild(top);
+
+  const bottom = document.createElement("div");
+  bottom.className = "bottomText";
+  bottom.textContent = "i love you forever!";
+  document.body.appendChild(bottom);
+
+  const images = [
+    "https://i.imgur.com/3ZQ3Z6K.png",
+    "https://i.imgur.com/0s9XK3K.png"
+  ];
+
+  for (let i = 0; i < 20; i++) {
+    const img = document.createElement("img");
+    img.src = images[Math.floor(Math.random() * images.length)];
+    img.className = "sticker";
+    img.style.left = Math.random() * 100 + "vw";
+    img.style.animationDuration = (4 + Math.random() * 4) + "s";
+    document.body.appendChild(img);
+  }
+
+  for (let i = 0; i < 80; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.textContent = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+    document.body.appendChild(heart);
+
+    const confetti = document.createElement("div");
+    confetti.className = "confetti";
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.background = `hsl(${Math.random()*360}, 90%, 60%)`;
+    confetti.style.animationDuration = (2 + Math.random() * 3) + "s";
+    document.body.appendChild(confetti);
+  }
+
+  setInterval(() => {
+    const f = document.createElement("div");
+    f.className = "floatingHeart";
+    f.textContent = "💗";
+    f.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(f);
+
+    setTimeout(() => f.remove(), 6000);
+  }, 300);
+
+  playAgain.style.display = "block";
+}
+
+yesBtn.addEventListener("click", launchEffects);
+
+playAgain.addEventListener("click", () => location.reload());
+</script>
+
+</body>
+</html>
