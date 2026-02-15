@@ -131,7 +131,9 @@
 
 <button id="playAgain">play again 💕</button>
 
-<iframe id="spotifyPlayer" style="display:none;" src="https://open.spotify.com/embed/track/6KkqZcs9XDgVck7Lg9QOTC?utm_source=generator" width="300" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+<div id="spotifyContainer" style="display:none; position:fixed; left:50%; transform:translateX(-50%); bottom:20px; z-index:999;">
+  <iframe src="https://open.spotify.com/embed/track/6KkqZcs9XDgVck7Lg9QOTC" width="300" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+</div>
 
 <script>
 const noBtn = document.getElementById("noBtn");
@@ -159,7 +161,7 @@ document.addEventListener("mousemove", (e) => {
 
 function launchEffects() {
   effectsActive = true;
-  document.getElementById("spotifyPlayer").style.display = "block";
+  document.getElementById("spotifyContainer").style.display = "block";
 
   const top = document.createElement("div");
   top.className = "topText";
@@ -201,7 +203,6 @@ function launchEffects() {
     document.body.appendChild(confetti);
   }
 
-  // floating hearts forever
   setInterval(() => {
     const f = document.createElement("div");
     f.className = "floatingHeart";
