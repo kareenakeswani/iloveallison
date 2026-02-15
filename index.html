@@ -131,8 +131,8 @@
 
 <button id="playAgain">play again 💕</button>
 
-<div id="spotifyContainer" style="display:none; position:fixed; left:50%; transform:translateX(-50%); bottom:20px; z-index:999;">
-  <iframe src="https://open.spotify.com/embed/track/6KkqZcs9XDgVck7Lg9QOTC" width="300" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+<div id="spotifyContainer" style="display:none; position:fixed; left:50%; transform:translateX(-50%); bottom:20px; width:90%; max-width:500px; z-index:999;">
+  <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0BeR2fJmYnKNn7IORw3GR9?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 </div>
 
 <script>
@@ -143,7 +143,6 @@ const playAgain = document.getElementById("playAgain");
 
 let effectsActive = false;
 
-// Make the "no" button run away
 document.addEventListener("mousemove", (e) => {
   if (effectsActive) return;
 
@@ -223,3 +222,4 @@ playAgain.addEventListener("click", () => location.reload());
 
 </body>
 </html>
+
